@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/car"
+            android:title="@string/car"
+            android:icon="@drawable/ic_car"/>
+
+        <item
+            android:id="@+id/bus"
+            android:title="@string/bus"
+            android:icon="@drawable/ic_bus"/>
+
+        <item
+            android:id="@+id/aircraft"
+            android:title="@string/aircraft"
+            android:icon="@drawable/ic_aircraft"/>
+
+        <item
+            android:id="@+id/shiep"
+            android:title="@string/shiep"
+            android:icon="@drawable/ic_shiep"/>
+
+        <item
+            android:id="@+id/bike"
+            android:title="@string/bice"
+            android:icon="@drawable/ic_bike"/>
+
+        <item
+            android:id="@+id/train"
+            android:title="@string/train"
+            android:icon="@drawable/ic_train"/>
+
+    </group>
+
+</menu>
