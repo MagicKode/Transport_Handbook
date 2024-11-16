@@ -20,7 +20,7 @@
             android:icon="@drawable/ic_aircraft"/>
 
         <item
-            android:id="@+id/shiep"
+            android:id="@+id/shipe"
             android:title="@string/shiep"
             android:icon="@drawable/ic_shiep"/>
 
