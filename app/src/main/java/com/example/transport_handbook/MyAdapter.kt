@@ -1,5 +1,6 @@
 package com.example.transport_handbook
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -49,5 +50,15 @@ class MyAdapter(listArray: ArrayList<ListItem>, context: Context) :
                 Toast.makeText(context, "Pressed : ${tvTitle.text}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    /**
+     * ф-я  Обновления списка
+     */
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateAdapter(listArray: List<ListItem>) {
+        listArrayR.clear()
+        listArrayR.addAll(listArray)
+        notifyDataSetChanged()
     }
 }

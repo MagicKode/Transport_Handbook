@@ -1,5 +1,6 @@
 package com.example.transport_handbook
 
+import android.content.res.TypedArray
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,26 +11,31 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private var adapter: MyAdapter? = null
     private lateinit var navigationView: NavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         navigationView = findViewById(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener (this)
+        navigationView.setNavigationItemSelectedListener(this)
 
         val list = ArrayList<ListItem>()
-        list.add(ListItem(R.drawable.car, "Car", "description"))
-        list.add(ListItem(R.drawable.aircraft, "Aircraft", "description"))
-        list.add(ListItem(R.drawable.shipe, "Shipe", "description"))
-        list.add(ListItem(R.drawable.bike, "Bike", "description"))
-        list.add(ListItem(R.drawable.train, "Train", "description"))
-        list.add(ListItem(R.drawable.bus, "Bus", "description"))
+
+        list.addAll(
+            fillArrays(
+                resources.getStringArray(R.array.transport),
+                resources.getStringArray(R.array.transport_content),
+                getImageId(R.array.transport_image_array)
+            )
+        )
 
         val rcView = findViewById<RecyclerView>(R.id.rcView)
         rcView.hasFixedSize()
         rcView.layoutManager = LinearLayoutManager(this)
-        rcView.adapter = MyAdapter(list, this)
+        adapter = MyAdapter(list, this)
+        rcView.adapter = adapter
     }
 
     /**
@@ -37,8 +43,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.car -> Toast.makeText(this, "Id car", Toast.LENGTH_SHORT).show()
-            R.id.bus -> Toast.makeText(this, "Id bus", Toast.LENGTH_SHORT).show()
+            R.id.car -> {
+                Toast.makeText(this, "Id car", Toast.LENGTH_SHORT).show()
+                adapter?.updateAdapter(
+                    fillArrays(
+                        resources.getStringArray(R.array.transport),
+                        resources.getStringArray(R.array.transport_content),
+                        getImageId(R.array.transport_image_array)
+                    )
+                )
+            }
+
+            R.id.bus -> {
+                Toast.makeText(this, "Id bus", Toast.LENGTH_SHORT).show()
+                adapter?.updateAdapter(
+                    fillArrays(
+                        resources.getStringArray(R.array.transport_example),
+                        resources.getStringArray(R.array.transport_content_example),
+                        getImageId(R.array.transport_image_array_example)
+                    )
+                )
+            }
+
             R.id.aircraft -> Toast.makeText(this, "Id aircraft", Toast.LENGTH_SHORT).show()
             R.id.shipe -> Toast.makeText(this, "Id shpe", Toast.LENGTH_SHORT).show()
             R.id.bike -> Toast.makeText(this, "Id bike", Toast.LENGTH_SHORT).show()
@@ -46,5 +72,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         return true
+    }
+
+    private fun fillArrays(
+        titleArray: Array<String>,
+        contentArray: Array<String>,
+        imageArray: IntArray
+    ): List<ListItem> {
+        val listItemArray = ArrayList<ListItem>()
+        for (n in 0..titleArray.size - 1) {
+            val listItem = ListItem(imageArray[n], titleArray[n], contentArray[n])
+            listItemArray.add(listItem)
+        }
+        return listItemArray
+    }
+
+    /**
+     * ф-я для расшифровки картинок для передачи в массив
+     */
+    private fun getImageId(imageArrayId: Int): IntArray {
+        val tArray: TypedArray =
+            resources.obtainTypedArray(imageArrayId)  //получаем для расшифровки id
+        val count = tArray.length()
+        val ids = IntArray(count)
+
+        for (i in ids.indices) {
+            ids[i] = tArray.getResourceId(i, 0)  //циклом берём идентификатор каждого
+        }
+        tArray.recycle()  //для повторения
+
+        return ids
     }
 }
