@@ -24,16 +24,23 @@
             android:title="@string/shiep"
             android:icon="@drawable/ic_shiep"/>
 
-        <item
-            android:id="@+id/bike"
-            android:title="@string/bice"
-            android:icon="@drawable/ic_bike"/>
 
-        <item
-            android:id="@+id/train"
-            android:title="@string/train"
-            android:icon="@drawable/ic_train"/>
 
     </group>
+
+    <item android:title="Group 2">
+        <menu>
+
+            <item
+                android:id="@+id/bike"
+                android:title="@string/bike"
+                android:icon="@drawable/ic_bike"/>
+
+            <item
+                android:id="@+id/train"
+                android:title="@string/train"
+                android:icon="@drawable/ic_train"/>
+        </menu>
+    </item>
 
 </menu>

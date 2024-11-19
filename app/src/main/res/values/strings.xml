@@ -5,6 +5,6 @@
     <string name="bus">Bus</string>
     <string name="aircraft">Aircraft</string>
     <string name="shiep">Shiep</string>
-    <string name="bice">Bice</string>
+    <string name="bike">Bike</string>
     <string name="train">Train</string>
 </resources>

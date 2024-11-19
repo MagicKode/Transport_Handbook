@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Добавляем слушатель нажатий , события
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
         when (item.itemId) {
             R.id.car -> {
                 Toast.makeText(this, "Id car", Toast.LENGTH_SHORT).show()
@@ -70,6 +73,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.bike -> Toast.makeText(this, "Id bike", Toast.LENGTH_SHORT).show()
             R.id.train -> Toast.makeText(this, "Id train", Toast.LENGTH_SHORT).show()
         }
+
+        drawerLayout.closeDrawer(GravityCompat.START)
 
         return true
     }

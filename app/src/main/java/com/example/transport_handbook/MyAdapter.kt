@@ -39,8 +39,9 @@ class MyAdapter(listArray: ArrayList<ListItem>, context: Context) : RecyclerView
         private val tvImage = view.findViewById<ImageView>(R.id.tvImage)
 
         fun bind(listItem: ListItem, context: Context) {
+            val textContent = listItem.content.substring(0, 50) + "..."
             tvTitle.text = listItem.title
-            tvContent.text = listItem.content
+            tvContent.text =  textContent
             tvImage.setImageResource(listItem.imageId)
 
             //слушатель нажатий на элементы
@@ -48,7 +49,7 @@ class MyAdapter(listArray: ArrayList<ListItem>, context: Context) : RecyclerView
                 Toast.makeText(context, "Pressed : ${tvTitle.text}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, ContentActivity::class.java).apply {
                     putExtra("title", tvTitle.text.toString())    //помещаем данные в элементы другой активити
-                    putExtra("content", tvContent.text.toString())
+                    putExtra("content",listItem.content)
                     putExtra("image", listItem.imageId)
                 }
                 context.startActivity(intent)
