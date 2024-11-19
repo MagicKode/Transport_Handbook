@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         imageArray: IntArray
     ): List<ListItem> {
         val listItemArray = ArrayList<ListItem>()
-        for (n in 0..titleArray.size - 1) {
-            val listItem = ListItem(imageArray[n], titleArray[n], contentArray[n])
+        for (n in titleArray.indices) {
+            val listItem = ListItem(titleArray[n], contentArray[n], imageArray[n])
             listItemArray.add(listItem)
         }
         return listItemArray

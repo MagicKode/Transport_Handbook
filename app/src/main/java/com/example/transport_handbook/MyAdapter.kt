@@ -2,6 +2,7 @@ package com.example.transport_handbook
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class MyAdapter(listArray: ArrayList<ListItem>, context: Context) :
-    RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+class MyAdapter(listArray: ArrayList<ListItem>, context: Context) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
     private var listArrayR = listArray
     private var contextR = context
 
@@ -22,9 +22,7 @@ class MyAdapter(listArray: ArrayList<ListItem>, context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val listItem = listArrayR[position]
-
         holder.bind(listItem, contextR)
-
     }
 
     override fun getItemCount(): Int {
@@ -37,17 +35,23 @@ class MyAdapter(listArray: ArrayList<ListItem>, context: Context) :
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
-        private val tvContent = view.findViewById<TextView>(R.id.tvTitle)
-        private val image = view.findViewById<ImageView>(R.id.image)
+        private val tvContent = view.findViewById<TextView>(R.id.tvContent)
+        private val tvImage = view.findViewById<ImageView>(R.id.tvImage)
 
         fun bind(listItem: ListItem, context: Context) {
-            tvTitle.text = listItem.titleText
+            tvTitle.text = listItem.title
             tvContent.text = listItem.content
-            image.setImageResource(listItem.imageId)
+            tvImage.setImageResource(listItem.imageId)
 
             //слушатель нажатий на элементы
             itemView.setOnClickListener {
                 Toast.makeText(context, "Pressed : ${tvTitle.text}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, ContentActivity::class.java).apply {
+                    putExtra("title", tvTitle.text.toString())    //помещаем данные в элементы другой активити
+                    putExtra("content", tvContent.text.toString())
+                    putExtra("image", listItem.imageId)
+                }
+                context.startActivity(intent)
             }
         }
     }
